@@ -4,6 +4,8 @@ import shapes.abstract_shapes.*;
 import shapes.abstract_shapes.Shape;
 import shapes.ellipses.Circle;
 import shapes.ellipses.Ellipse;
+import shapes.lines.Line;
+import shapes.lines.Ray;
 import shapes.lines.Segment;
 
 import javax.swing.*;
@@ -31,6 +33,7 @@ public class MainApp extends JFrame{
     private JButton buttonMove;
     private JButton buttonEllipse;
     private JButton buttonCircle;
+    private JButton buttonLine;
     private DrawAction drawAction = DrawAction.MOVE;
     private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
@@ -57,6 +60,8 @@ public class MainApp extends JFrame{
         buttonSegment.addActionListener(e -> drawAction = DrawAction.SEGMENT);
         buttonEllipse.addActionListener(e->drawAction=DrawAction.ELLIPSE);
         buttonCircle.addActionListener(e->drawAction=DrawAction.CIRCLE);
+        buttonRay.addActionListener(e -> drawAction = DrawAction.RAY);
+        buttonLine.addActionListener(e -> drawAction = DrawAction.LINE);
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
@@ -84,6 +89,12 @@ public class MainApp extends JFrame{
                         case CIRCLE:
                             shapes.add(new Circle(e.getPoint(),e.getPoint(),frameWidth,frameColor,fillColor));
                             break;
+                        case RAY:
+                            shapes.add(new Ray(e.getPoint(), e.getPoint(), frameColor, frameWidth));
+                            break;
+                        case LINE:
+                            shapes.add(new Line(e.getPoint(), e.getPoint(), frameColor, frameWidth));
+                            break;
                     }
                     repaint();
                 }
@@ -109,6 +120,8 @@ public class MainApp extends JFrame{
                                 currentShape.move(e.getPoint());
                             break;
                         case SEGMENT:
+                        case RAY:
+                        case LINE:
                             Segment segment = (Segment) currentShape;
                             segment.setSecondPoint(e.getPoint());
                             break;

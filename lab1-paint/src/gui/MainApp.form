@@ -41,6 +41,14 @@
                   <text value="Ray"/>
                 </properties>
               </component>
+              <component id="f4043" class="javax.swing.JButton" binding="buttonLine">
+                <constraints/>
+                <properties>
+                  <borderPainted value="true"/>
+                  <label value="Line"/>
+                  <text value="Line"/>
+                </properties>
+              </component>
               <hspacer id="e2ec8">
                 <constraints/>
               </hspacer>
