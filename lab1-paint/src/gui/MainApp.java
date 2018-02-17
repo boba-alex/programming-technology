@@ -2,6 +2,7 @@ package gui;
 
 import shapes.abstract_shapes.*;
 import shapes.abstract_shapes.Shape;
+import shapes.lines.Line;
 import shapes.lines.Ray;
 import shapes.lines.Segment;
 
@@ -28,6 +29,7 @@ public class MainApp extends JFrame{
     private JButton buttonSegment;
     private JButton buttonRay;
     private JButton buttonMove;
+    private JButton buttonLine;
     private DrawAction drawAction = DrawAction.MOVE;
     private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
@@ -53,6 +55,7 @@ public class MainApp extends JFrame{
     private void setUpGUI() {
         buttonSegment.addActionListener(e -> drawAction = DrawAction.SEGMENT);
         buttonRay.addActionListener(e -> drawAction = DrawAction.RAY);
+        buttonLine.addActionListener(e -> drawAction = DrawAction.LINE);
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
@@ -76,6 +79,9 @@ public class MainApp extends JFrame{
                             break;
                         case RAY:
                             shapes.add(new Ray(e.getPoint(), e.getPoint(), frameColor, frameWidth));
+                            break;
+                        case LINE:
+                            shapes.add(new Line(e.getPoint(), e.getPoint(), frameColor, frameWidth));
                             break;
                     }
                     repaint();
@@ -103,6 +109,7 @@ public class MainApp extends JFrame{
                             break;
                         case SEGMENT:
                         case RAY:
+                        case LINE:
                             Segment segment = (Segment) currentShape;
                             segment.setSecondPoint(e.getPoint());
                             break;

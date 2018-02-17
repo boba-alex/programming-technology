@@ -18,7 +18,8 @@ public class Line extends Ray {
         super.draw(g);
         Point theCenter = getLocation();
         Point secondPoint = getSecondPoint();
-        setSecondPoint(new Point);
+        setSecondPoint(new Point(2*theCenter.x-secondPoint.x, 2*theCenter.y-secondPoint.y));
+        super.draw(g);
     }
 
 
