@@ -14,6 +14,16 @@ public class Polygon extends Shape2D {
 
     }
 
+    @Override
+    public void draw(Graphics2D g) {
+
+    }
+
+    @Override
+    public boolean contains(Point p) {
+        return false;
+    }
+
 
     public void draw() {
 

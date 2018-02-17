@@ -2,6 +2,8 @@ package shapes.ellipses;
 
 import shapes.abstract_shapes.Shape2D;
 
+import java.awt.*;
+
 
 public class Ellipse extends Shape2D {
 
@@ -11,9 +13,14 @@ public class Ellipse extends Shape2D {
 
     }
 
+    @Override
+    public void draw(Graphics2D g) {
 
-    public void draw() {
+    }
 
+    @Override
+    public boolean contains(Point p) {
+        return false;
     }
 
     public int getCornerPoint() {
