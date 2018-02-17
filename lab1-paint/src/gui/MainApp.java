@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 /**
  * Created by User on 17.02.2018.
@@ -27,11 +28,13 @@ public class MainApp extends JFrame{
     private JButton buttonRay;
     private JButton buttonMove;
     private DrawAction drawAction = DrawAction.MOVE;
-    private int frameWidth = 1;
+    private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
     private Color fillColor = new Color(255, 255, 255);
 
     private ArrayList<Shape> shapes = new ArrayList<>();
+
+    private boolean isDragged = true;
 
     public MainApp(){
         super("MyPaint");
@@ -48,18 +51,38 @@ public class MainApp extends JFrame{
 
     private void setUpGUI() {
         buttonSegment.addActionListener(e -> drawAction = DrawAction.SEGMENT);
+        buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     switch (drawAction) {
+                        case MOVE:
+                            ListIterator<Shape> listIterator = shapes.listIterator(shapes.size());
+                            while(listIterator.hasPrevious()){
+                                int prevIndex = listIterator.previousIndex();
+                                if(listIterator.previous().contains(e.getPoint())){
+                                    isDragged = true;
+                                    shapes.add(shapes.remove(prevIndex));
+                                    break;
+                                }
+                            }
+                            break;
                         case SEGMENT:
                             shapes.add(new Segment(e.getPoint(), e.getPoint(), frameColor, frameWidth));
                             break;
                     }
                     repaint();
                 }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (drawAction == DrawAction.MOVE){
+                    isDragged = false;
+                }
+
             }
         });
 
@@ -69,6 +92,10 @@ public class MainApp extends JFrame{
                 if (SwingUtilities.isLeftMouseButton(e) && shapes.size() > 0) {
                     Shape currentShape = shapes.get(shapes.size() - 1);
                     switch (drawAction) {
+                        case MOVE:
+                            if(isDragged)
+                                currentShape.move(e.getPoint());
+                            break;
                         case SEGMENT:
                             Segment segment = (Segment) currentShape;
                             segment.setSecondPoint(e.getPoint());
