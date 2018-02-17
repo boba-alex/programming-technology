@@ -21,11 +21,11 @@ public class Circle extends Ellipse {
     }
 
     @Override
-    protected void correctCornerPoint(Point point)
+    protected void correctCornerPoint(Point theCenter)
     {
-        super.correctCornerPoint(point);
+        super.correctCornerPoint(theCenter);
         Point cornerPoint = getCornerPoint();
-        cornerPoint.setLocation(cornerPoint.x,point.y-point.x+cornerPoint.x);
+        cornerPoint.setLocation(cornerPoint.x,theCenter.y-theCenter.x+cornerPoint.x);
     }
 
 
