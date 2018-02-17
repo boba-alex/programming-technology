@@ -16,7 +16,8 @@ public abstract class Shape {
         this.theCenter = theCenter;
     }
 
-    public Shape(Point theCenter, Color borderColor, int borderWidth) {
+    public Shape(Point theCenter, Color borderColor, int borderWidth)
+    {
         this.theCenter = theCenter;
         this.borderColor = borderColor;
         this.borderWidth = borderWidth;

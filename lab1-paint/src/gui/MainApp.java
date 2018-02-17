@@ -2,6 +2,8 @@ package gui;
 
 import shapes.abstract_shapes.*;
 import shapes.abstract_shapes.Shape;
+import shapes.ellipses.Circle;
+import shapes.ellipses.Ellipse;
 import shapes.lines.Segment;
 
 import javax.swing.*;
@@ -16,7 +18,7 @@ import java.util.ListIterator;
  * Created by User on 17.02.2018.
  */
 enum DrawAction {
-    MOVE, RECTANGLE, ELLIPSE, REGULAR_POLYGON, SEGMENT, RAY, LINE,
+    MOVE, RECTANGLE,CIRCLE, ELLIPSE, REGULAR_POLYGON, SEGMENT, RAY, LINE,
     POLYGON, UPDATE_POLYGON, PARALLELOGRAM, RHOMB
 }
 
@@ -27,6 +29,8 @@ public class MainApp extends JFrame{
     private JButton buttonSegment;
     private JButton buttonRay;
     private JButton buttonMove;
+    private JButton buttonEllipse;
+    private JButton buttonCircle;
     private DrawAction drawAction = DrawAction.MOVE;
     private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
@@ -51,6 +55,8 @@ public class MainApp extends JFrame{
 
     private void setUpGUI() {
         buttonSegment.addActionListener(e -> drawAction = DrawAction.SEGMENT);
+        buttonEllipse.addActionListener(e->drawAction=DrawAction.ELLIPSE);
+        buttonCircle.addActionListener(e->drawAction=DrawAction.CIRCLE);
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
@@ -71,6 +77,12 @@ public class MainApp extends JFrame{
                             break;
                         case SEGMENT:
                             shapes.add(new Segment(e.getPoint(), e.getPoint(), frameColor, frameWidth));
+                            break;
+                        case ELLIPSE:
+                            shapes.add(new Ellipse(e.getPoint(),e.getPoint(),frameWidth,frameColor,fillColor));
+                            break;
+                        case CIRCLE:
+                            shapes.add(new Circle(e.getPoint(),e.getPoint(),frameWidth,frameColor,fillColor));
                             break;
                     }
                     repaint();
@@ -99,6 +111,14 @@ public class MainApp extends JFrame{
                         case SEGMENT:
                             Segment segment = (Segment) currentShape;
                             segment.setSecondPoint(e.getPoint());
+                            break;
+                        case ELLIPSE:
+                            Ellipse ellipse=(Ellipse) currentShape;
+                            ellipse.setCornerPoint(e.getPoint());
+                            break;
+                        case CIRCLE:
+                            Circle circle=(Circle) currentShape;
+                            circle.setCornerPoint(e.getPoint());
                             break;
                     }
                     repaint();

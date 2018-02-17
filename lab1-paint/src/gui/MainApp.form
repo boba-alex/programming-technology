@@ -17,6 +17,18 @@
             <properties/>
             <border type="none"/>
             <children>
+              <component id="5f09b" class="javax.swing.JButton" binding="buttonCircle">
+                <constraints/>
+                <properties>
+                  <text value="Circle"/>
+                </properties>
+              </component>
+              <component id="cdf45" class="javax.swing.JButton" binding="buttonEllipse">
+                <constraints/>
+                <properties>
+                  <text value="Ellipse"/>
+                </properties>
+              </component>
               <component id="e7199" class="javax.swing.JButton" binding="buttonSegment">
                 <constraints/>
                 <properties>
