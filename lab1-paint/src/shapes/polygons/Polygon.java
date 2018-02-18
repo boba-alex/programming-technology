@@ -23,38 +23,23 @@ public class Polygon extends Shape2D
     }
 
     @Override
-    public boolean contains(Point p)
+    public boolean contains(Point point)
     {
-       return contains(getPoints(),numberOfPoint,p.x,p.y);
-    }
-
-    @Override
-    public void draw(Graphics2D g)
-    {
-        g.setStroke(new BasicStroke(getBorderWidth()));
-        g.setColor(getFillColor());
-        g.fillPolygon(xPoints,yPoints,numberOfPoint);
-        g.setColor(getBorderColor());
-        g.drawPolygon(xPoints,yPoints,numberOfPoint);
-    }
-
-
-
-    public boolean contains(ArrayList<Point> p, int Number, int x, int y)
-    {
+        ArrayList<Point> p=getPoints();
+        int x=point.x,y=point.y;
         int i1, i2, n, S, S1, S2, S3;
         boolean flag=false;
-        for (n=0; n<Number; n++)
+        for (n=0; n<numberOfPoint; n++)
         {
             flag = false;
-            i1 = n < Number-1 ? n + 1 : 0;
+            i1 = n < numberOfPoint-1 ? n + 1 : 0;
             while(true)
             {
                 i2 = i1 + 1;
-                if (i2 >= Number)
+                if (i2 >= numberOfPoint)
                     i2 = 0;
-                if (i2 == (n < Number-1 ? n + 1 : 0))
-                       break;
+                if (i2 == (n < numberOfPoint-1 ? n + 1 : 0))
+                    break;
                 S = Math.abs(p.get(i1).x*(p.get(i2).y - p.get(n).y)+p.get(i2).x*(p.get(n).y - p.get(i1).y)+
                         p.get(n).x*(p.get(i1).y - p.get(i2).y));
                 S1 = Math.abs(p.get(i1).x*(p.get(i2).y - y)+p.get(i2).x*(y- p.get(i1).y)+x*(p.get(i1).y - p.get(i2).y));
@@ -66,15 +51,24 @@ public class Polygon extends Shape2D
                     break;
                 }
                 i1 = i1 + 1;
-                if (i1 >= Number)
+                if (i1 >= numberOfPoint)
                     i1 = 0;
             }
             if (!flag)
                 break;
         }
-            return flag;
+        return flag;
     }
 
+    @Override
+    public void draw(Graphics2D g)
+    {
+        g.setStroke(new BasicStroke(getBorderWidth()));
+        g.setColor(getFillColor());
+        g.fillPolygon(xPoints,yPoints,numberOfPoint);
+        g.setColor(getBorderColor());
+        g.drawPolygon(xPoints,yPoints,numberOfPoint);
+    }
 
     public int getNumberOfPoints() {
         return numberOfPoint;
