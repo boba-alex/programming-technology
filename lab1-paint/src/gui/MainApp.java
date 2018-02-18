@@ -166,7 +166,6 @@ public class MainApp extends JFrame{
                             Point lastPoint = segments.get(segments.size() - 1).getSecondPoint();
                             segment = new Segment(lastPoint, e.getPoint(),frameColor,frameWidth);
                             segments.add(segment);
-                            //polygonalLine.setSegments(segments);
                             break;
                     }
                     repaint();

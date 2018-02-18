@@ -37,9 +37,16 @@ public class PolygonalLine extends Shape1D {
     }
 
     @Override
-    public void move(Point point) {
-        for(Segment s : segments){
-            s.move(point);
+    public void move(Point point)
+    {
+        Point start=segments.get(0).getLocation(), second;
+        int deltaX=point.x-start.x, deltaY=point.y-start.y;
+        for(Segment s : segments)
+        {
+            start=s.getLocation();
+            second=s.getSecondPoint();
+            s.setLocation(new Point(start.x+deltaX,start.y+deltaY));
+            s.setSecondPoint(new Point(second.x + deltaX, second.y +deltaY));
         }
     }
 
