@@ -14,7 +14,7 @@ public class Parallelogram extends Polygon {
         setPoints(getParallelogramPoints(cornerPoint));
     }
 
-    private ArrayList<Point> getParallelogramPoints(Point cornerPoint)
+    protected ArrayList<Point> getParallelogramPoints(Point cornerPoint)
     {
         Point theCenter = getLocation();
         ArrayList<Point> points = new ArrayList<>(4);

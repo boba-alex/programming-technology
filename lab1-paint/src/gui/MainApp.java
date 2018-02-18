@@ -9,6 +9,7 @@ import shapes.lines.Ray;
 import shapes.lines.Segment;
 import shapes.polygons.Parallelogram;
 import shapes.polygons.Polygon;
+import shapes.polygons.Rhomb;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +39,7 @@ public class MainApp extends JFrame{
     private JButton buttonLine;
     private JButton buttonPolygon;
     private JButton buttonParalelogram;
+    private JButton buttonRhomb;
     private DrawAction drawAction = DrawAction.MOVE;
     private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
@@ -68,6 +70,7 @@ public class MainApp extends JFrame{
         buttonLine.addActionListener(e -> drawAction = DrawAction.LINE);
         buttonPolygon.addActionListener(e->drawAction=DrawAction.POLYGON);
         buttonParalelogram.addActionListener(e->drawAction=DrawAction.PARALLELOGRAM);
+        buttonRhomb.addActionListener(e->drawAction=DrawAction.RHOMB);
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
@@ -118,6 +121,9 @@ public class MainApp extends JFrame{
                         case PARALLELOGRAM:
                             shapes.add(new Parallelogram(e.getPoint(), e.getPoint(), frameWidth, frameColor, fillColor));
                             break;
+                        case RHOMB:
+                            shapes.add(new Rhomb(e.getPoint(),e.getPoint(),frameWidth,frameColor,fillColor));
+                            break;
                     }
                     repaint();
                 }
@@ -159,6 +165,7 @@ public class MainApp extends JFrame{
                         case UPDATE_POLYGON:
                             ((Polygon) currentShape).setLastPoint(e.getPoint());
                             break;
+                        case RHOMB:
                         case PARALLELOGRAM:
                             Parallelogram parallelogram=(Parallelogram) currentShape;
                             parallelogram.setCornerPoint(e.getPoint());
