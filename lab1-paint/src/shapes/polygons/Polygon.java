@@ -89,7 +89,6 @@ public class Polygon extends Shape2D
         return points;
     }
 
-
     public void setPoints(ArrayList<Point> newVal)
     {
         numberOfPoint=newVal.size();
@@ -128,4 +127,9 @@ public class Polygon extends Shape2D
         return new Point(x/numberOfPoint,y/numberOfPoint);
     }
 
+    public void setLastPoint(Point pt){
+        xPoints[numberOfPoint-1] = pt.x;
+        yPoints[numberOfPoint-1] = pt.y;
+        setLocation(computeTheCenter());
+    }
 }

@@ -150,6 +150,9 @@ public class MainApp extends JFrame{
                             Circle circle=(Circle) currentShape;
                             circle.setCornerPoint(e.getPoint());
                             break;
+                        case UPDATE_POLYGON:
+                            ((Polygon) currentShape).setLastPoint(e.getPoint());
+                            break;
                     }
                     repaint();
                 }
