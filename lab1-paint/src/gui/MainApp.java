@@ -1,15 +1,16 @@
 package gui;
 
-import shapes.abstract_shapes.*;
 import shapes.abstract_shapes.Shape;
-import shapes.ellipses.Circle;
-import shapes.ellipses.Ellipse;
+import shapes.rectangulars.Circle;
+import shapes.rectangulars.Ellipse;
 import shapes.lines.Line;
 import shapes.lines.Ray;
 import shapes.lines.Segment;
 import shapes.polygons.Parallelogram;
 import shapes.polygons.Polygon;
 import shapes.polygons.Rhomb;
+import shapes.rectangulars.Rectangle;
+import shapes.abstract_shapes.RectangularFigure;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +41,7 @@ public class MainApp extends JFrame{
     private JButton buttonPolygon;
     private JButton buttonParalelogram;
     private JButton buttonRhomb;
+    private JButton buttonRectangle;
     private DrawAction drawAction = DrawAction.MOVE;
     private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
@@ -71,6 +73,7 @@ public class MainApp extends JFrame{
         buttonPolygon.addActionListener(e->drawAction=DrawAction.POLYGON);
         buttonParalelogram.addActionListener(e->drawAction=DrawAction.PARALLELOGRAM);
         buttonRhomb.addActionListener(e->drawAction=DrawAction.RHOMB);
+        buttonRectangle.addActionListener(e->drawAction=DrawAction.RECTANGLE);
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
@@ -124,6 +127,9 @@ public class MainApp extends JFrame{
                         case RHOMB:
                             shapes.add(new Rhomb(e.getPoint(),e.getPoint(),frameWidth,frameColor,fillColor));
                             break;
+                        case RECTANGLE:
+                            shapes.add(new Rectangle(e.getPoint(),e.getPoint(),frameWidth,frameColor,fillColor));
+                            break;
                     }
                     repaint();
                 }
@@ -154,13 +160,11 @@ public class MainApp extends JFrame{
                             Segment segment = (Segment) currentShape;
                             segment.setSecondPoint(e.getPoint());
                             break;
+                        case RECTANGLE:
                         case ELLIPSE:
-                            Ellipse ellipse=(Ellipse) currentShape;
-                            ellipse.setCornerPoint(e.getPoint());
-                            break;
                         case CIRCLE:
-                            Circle circle=(Circle) currentShape;
-                            circle.setCornerPoint(e.getPoint());
+                            RectangularFigure figure=(RectangularFigure) currentShape;
+                            figure.setCornerPoint(e.getPoint());
                             break;
                         case UPDATE_POLYGON:
                             ((Polygon) currentShape).setLastPoint(e.getPoint());
