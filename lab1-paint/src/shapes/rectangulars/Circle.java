@@ -1,20 +1,10 @@
-package shapes.ellipses;
+package shapes.rectangulars;
 
 
 import java.awt.*;
 
-public class Circle extends Ellipse {
-
-    public Circle()
-    {
-
-    }
-
-    public Circle(Point theCenter, Point cornerPoint)
-    {
-        super(theCenter,cornerPoint);
-    }
-
+public class Circle extends Ellipse
+{
     public Circle(Point theCenter, Point cornerPoint, int frameWidth, Color frameColor, Color fillColor)
     {
         super(theCenter,cornerPoint, frameWidth, frameColor, fillColor);
