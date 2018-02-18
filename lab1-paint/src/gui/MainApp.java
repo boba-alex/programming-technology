@@ -7,6 +7,7 @@ import shapes.ellipses.Ellipse;
 import shapes.lines.Line;
 import shapes.lines.Ray;
 import shapes.lines.Segment;
+import shapes.polygons.Parallelogram;
 import shapes.polygons.Polygon;
 
 import javax.swing.*;
@@ -36,6 +37,7 @@ public class MainApp extends JFrame{
     private JButton buttonCircle;
     private JButton buttonLine;
     private JButton buttonPolygon;
+    private JButton buttonParalelogram;
     private DrawAction drawAction = DrawAction.MOVE;
     private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
@@ -65,6 +67,7 @@ public class MainApp extends JFrame{
         buttonRay.addActionListener(e -> drawAction = DrawAction.RAY);
         buttonLine.addActionListener(e -> drawAction = DrawAction.LINE);
         buttonPolygon.addActionListener(e->drawAction=DrawAction.POLYGON);
+        buttonParalelogram.addActionListener(e->drawAction=DrawAction.PARALLELOGRAM);
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
@@ -112,6 +115,9 @@ public class MainApp extends JFrame{
                             newPoints.add(e.getPoint());
                             polygon.setPoints(newPoints);
                             break;
+                        case PARALLELOGRAM:
+                            shapes.add(new Parallelogram(e.getPoint(), e.getPoint(), frameWidth, frameColor, fillColor));
+                            break;
                     }
                     repaint();
                 }
@@ -152,6 +158,10 @@ public class MainApp extends JFrame{
                             break;
                         case UPDATE_POLYGON:
                             ((Polygon) currentShape).setLastPoint(e.getPoint());
+                            break;
+                        case PARALLELOGRAM:
+                            Parallelogram parallelogram=(Parallelogram) currentShape;
+                            parallelogram.setCornerPoint(e.getPoint());
                             break;
                     }
                     repaint();

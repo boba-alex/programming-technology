@@ -37,11 +37,11 @@ public class Ellipse extends Shape2D {
         g.drawOval(cornerPoint.x,cornerPoint.y,width,height);
     }
 
-    protected int getWidth()
+    private int getWidth()
     {
         return 2*(getLocation().x-cornerPoint.x);
     }
-    protected int getHeight()
+    private int getHeight()
     {
         return 2*(getLocation().y-cornerPoint.y);
     }
@@ -57,10 +57,10 @@ public class Ellipse extends Shape2D {
         return 4 * (alpha * alpha + beta * beta) < 1;
     }
 
-    public Point getCornerPoint() {
+    Point getCornerPoint()
+    {
         return cornerPoint;
     }
-
 
     public void setCornerPoint(Point newVal)
     {

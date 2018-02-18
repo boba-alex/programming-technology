@@ -12,9 +12,13 @@ public class Polygon extends Shape2D
     private int[] xPoints,yPoints;
 
     public Polygon()
-    {
+    {}
 
+    public Polygon(Point theCenter, int frameWidth, Color frameColor, Color fillColor)
+    {
+        super(theCenter,  frameWidth, frameColor, fillColor);
     }
+
     public Polygon(Point theCenter, ArrayList<Point> points, int frameWidth,Color frameColor, Color fillColor)
     {
         super(theCenter,frameWidth,frameColor,fillColor);
@@ -70,7 +74,8 @@ public class Polygon extends Shape2D
         g.drawPolygon(xPoints,yPoints,numberOfPoint);
     }
 
-    public int getNumberOfPoints() {
+    public int getNumberOfPoints()
+    {
         return numberOfPoint;
     }
 

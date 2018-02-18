@@ -7,8 +7,7 @@ public abstract class Shape2D extends Shape {
 
     private Color fillColor = new Color(255,255,255);
 
-    public Shape2D()
-    {
+    public Shape2D(){
 
     }
 
@@ -25,7 +24,6 @@ public abstract class Shape2D extends Shape {
     public Color getFillColor() {
         return fillColor;
     }
-
 
     public void setFillColor(Color newVal) {
         fillColor = newVal;
