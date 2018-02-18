@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.MainApp">
   <grid id="27dc6" binding="rootPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="803" height="400"/>
+      <xy x="20" y="20" width="941" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -17,6 +17,12 @@
             <properties/>
             <border type="none"/>
             <children>
+              <component id="69b7" class="javax.swing.JButton" binding="buttonRPolygon">
+                <constraints/>
+                <properties>
+                  <text value="RegularPolygon"/>
+                </properties>
+              </component>
               <component id="c5a75" class="javax.swing.JButton" binding="buttonRectangle">
                 <constraints/>
                 <properties>

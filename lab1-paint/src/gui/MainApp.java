@@ -1,16 +1,17 @@
 package gui;
 
+import shapes.abstract_shapes.RectangularFigure;
 import shapes.abstract_shapes.Shape;
-import shapes.rectangulars.Circle;
-import shapes.rectangulars.Ellipse;
 import shapes.lines.Line;
 import shapes.lines.Ray;
 import shapes.lines.Segment;
 import shapes.polygons.Parallelogram;
 import shapes.polygons.Polygon;
+import shapes.polygons.RegularPolygon;
 import shapes.polygons.Rhomb;
+import shapes.rectangulars.Circle;
+import shapes.rectangulars.Ellipse;
 import shapes.rectangulars.Rectangle;
-import shapes.abstract_shapes.RectangularFigure;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +43,10 @@ public class MainApp extends JFrame{
     private JButton buttonParalelogram;
     private JButton buttonRhomb;
     private JButton buttonRectangle;
+    private JButton buttonRPolygon;
+
     private DrawAction drawAction = DrawAction.MOVE;
+    private int numAngles;
     private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
     private Color fillColor = new Color(255, 255, 255);
@@ -74,6 +78,18 @@ public class MainApp extends JFrame{
         buttonParalelogram.addActionListener(e->drawAction=DrawAction.PARALLELOGRAM);
         buttonRhomb.addActionListener(e->drawAction=DrawAction.RHOMB);
         buttonRectangle.addActionListener(e->drawAction=DrawAction.RECTANGLE);
+        buttonRPolygon.addActionListener(e->
+        {
+            drawAction=DrawAction.REGULAR_POLYGON;
+            numAngles=0;
+            while(numAngles<3)
+            {
+                numAngles= Integer.parseInt(JOptionPane.showInputDialog(null,
+                        "Set number of angles, greater then 2"));
+                if(numAngles<3)
+                    JOptionPane.showConfirmDialog(null,"Error! Incorrect number of angles");
+            }
+        });
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
@@ -130,6 +146,9 @@ public class MainApp extends JFrame{
                         case RECTANGLE:
                             shapes.add(new Rectangle(e.getPoint(),e.getPoint(),frameWidth,frameColor,fillColor));
                             break;
+                        case REGULAR_POLYGON:
+                            shapes.add(new RegularPolygon(e.getPoint(),e.getPoint(),numAngles,frameWidth,frameColor,fillColor));
+                            break;
                     }
                     repaint();
                 }
@@ -173,6 +192,10 @@ public class MainApp extends JFrame{
                         case PARALLELOGRAM:
                             Parallelogram parallelogram=(Parallelogram) currentShape;
                             parallelogram.setCornerPoint(e.getPoint());
+                            break;
+                        case REGULAR_POLYGON:
+                            RegularPolygon polygon = (RegularPolygon) currentShape;
+                            polygon.setPointOnCircle(e.getPoint());
                             break;
                     }
                     repaint();
