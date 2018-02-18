@@ -46,6 +46,8 @@ public class MainApp extends JFrame{
     private JButton buttonRectangle;
     private JButton buttonRPolygon;
     private JButton buttonPolygonalLine;
+    private JButton buttonBorderColor;
+    private JButton buttonFillingColor;
 
     private DrawAction drawAction = DrawAction.MOVE;
     private int numAngles;
@@ -94,6 +96,17 @@ public class MainApp extends JFrame{
             }
         });
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
+
+        buttonBorderColor.addActionListener(e ->{
+            Color c = JColorChooser.showDialog(null, "Choose a Border Color", Color.BLACK);
+            if (c != null)
+                frameColor = c;
+        });
+        buttonFillingColor.addActionListener(e ->{
+            Color c = JColorChooser.showDialog(null, "Choose a Filling Color", Color.WHITE);
+            if (c != null)
+                fillColor = c;
+        });
 
         drawPanel.addMouseListener(new MouseAdapter() {
             @Override
