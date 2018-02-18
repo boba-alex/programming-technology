@@ -157,6 +157,7 @@ public class MainApp extends JFrame{
                             ArrayList<Segment> segments = new ArrayList<>();
                             segments.add(segment);
                             shapes.add(new PolygonalLine(segments, frameColor, frameWidth));
+                            drawAction=DrawAction.UPDATE_POLYGONAL_LINE;
                             break;
                         case UPDATE_POLYGONAL_LINE:
                             currentShape = shapes.get(shapes.size() - 1);
