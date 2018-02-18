@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.MainApp">
   <grid id="27dc6" binding="rootPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="941" height="400"/>
+      <xy x="20" y="20" width="1267" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -77,6 +77,12 @@
                   <borderPainted value="true"/>
                   <label value="Line"/>
                   <text value="Line"/>
+                </properties>
+              </component>
+              <component id="2c2b2" class="javax.swing.JButton" binding="buttonPolygonalLine">
+                <constraints/>
+                <properties>
+                  <text value="Polygonal line"/>
                 </properties>
               </component>
               <hspacer id="e2ec8">

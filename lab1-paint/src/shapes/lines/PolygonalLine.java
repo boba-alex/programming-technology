@@ -14,19 +14,33 @@ public class PolygonalLine extends Shape1D {
 
     }
 
+    public PolygonalLine(ArrayList<Segment> segments, Color borderColor, int borderWidth) {
+        super(segments.get(0).getLocation(), borderColor, borderWidth);
+        this.segments = segments;
+    }
+
     @Override
     public void draw(Graphics2D g) {
-
+        for(Segment s : segments){
+            s.draw(g);
+        }
     }
 
     @Override
     public boolean contains(Point p) {
+        for(Segment s : segments){
+            if(s.contains(p)){
+                return true;
+            }
+        }
         return false;
     }
 
-
-    public void draw() {
-
+    @Override
+    public void move(Point point) {
+        for(Segment s : segments){
+            s.move(point);
+        }
     }
 
     public ArrayList<Segment> getSegments() {

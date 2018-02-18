@@ -3,6 +3,7 @@ package gui;
 import shapes.abstract_shapes.RectangularFigure;
 import shapes.abstract_shapes.Shape;
 import shapes.lines.Line;
+import shapes.lines.PolygonalLine;
 import shapes.lines.Ray;
 import shapes.lines.Segment;
 import shapes.polygons.Parallelogram;
@@ -26,7 +27,7 @@ import java.util.ListIterator;
  */
 enum DrawAction {
     MOVE, RECTANGLE,CIRCLE, ELLIPSE, REGULAR_POLYGON, SEGMENT, RAY, LINE,
-    POLYGON, UPDATE_POLYGON, PARALLELOGRAM, RHOMB
+    POLYGON, UPDATE_POLYGON, PARALLELOGRAM, RHOMB, POLYGONAL_LINE, UPDATE_POLYGONAL_LINE
 }
 
 public class MainApp extends JFrame{
@@ -44,6 +45,7 @@ public class MainApp extends JFrame{
     private JButton buttonRhomb;
     private JButton buttonRectangle;
     private JButton buttonRPolygon;
+    private JButton buttonPolygonalLine;
 
     private DrawAction drawAction = DrawAction.MOVE;
     private int numAngles;
@@ -78,6 +80,7 @@ public class MainApp extends JFrame{
         buttonParalelogram.addActionListener(e->drawAction=DrawAction.PARALLELOGRAM);
         buttonRhomb.addActionListener(e->drawAction=DrawAction.RHOMB);
         buttonRectangle.addActionListener(e->drawAction=DrawAction.RECTANGLE);
+        buttonPolygonalLine.addActionListener(e->drawAction=DrawAction.POLYGONAL_LINE);
         buttonRPolygon.addActionListener(e->
         {
             drawAction=DrawAction.REGULAR_POLYGON;
@@ -149,6 +152,21 @@ public class MainApp extends JFrame{
                         case REGULAR_POLYGON:
                             shapes.add(new RegularPolygon(e.getPoint(),e.getPoint(),numAngles,frameWidth,frameColor,fillColor));
                             break;
+                        case POLYGONAL_LINE:
+                            Segment segment = new Segment(e.getPoint(), e.getPoint(), frameColor, frameWidth);
+                            ArrayList<Segment> segments = new ArrayList<>();
+                            segments.add(segment);
+                            shapes.add(new PolygonalLine(segments, frameColor, frameWidth));
+                            break;
+                        case UPDATE_POLYGONAL_LINE:
+                            currentShape = shapes.get(shapes.size() - 1);
+                            PolygonalLine polygonalLine = (PolygonalLine) currentShape;
+                            segments = polygonalLine.getSegments();
+                            Point lastPoint = segments.get(segments.size() - 1).getSecondPoint();
+                            segment = new Segment(lastPoint, e.getPoint(),frameColor,frameWidth);
+                            segments.add(segment);
+                            //polygonalLine.setSegments(segments);
+                            break;
                     }
                     repaint();
                 }
@@ -196,6 +214,12 @@ public class MainApp extends JFrame{
                         case REGULAR_POLYGON:
                             RegularPolygon polygon = (RegularPolygon) currentShape;
                             polygon.setPointOnCircle(e.getPoint());
+                            break;
+                        case UPDATE_POLYGONAL_LINE:
+                            currentShape = shapes.get(shapes.size() - 1);
+                            PolygonalLine polygonalLine = (PolygonalLine) currentShape;
+                            ArrayList<Segment> segments = polygonalLine.getSegments();
+                            segments.get(segments.size() - 1).setSecondPoint(e.getPoint());
                             break;
                     }
                     repaint();
