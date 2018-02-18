@@ -7,6 +7,7 @@ import shapes.ellipses.Ellipse;
 import shapes.lines.Line;
 import shapes.lines.Ray;
 import shapes.lines.Segment;
+import shapes.polygons.Polygon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +35,7 @@ public class MainApp extends JFrame{
     private JButton buttonEllipse;
     private JButton buttonCircle;
     private JButton buttonLine;
+    private JButton buttonPolygon;
     private DrawAction drawAction = DrawAction.MOVE;
     private int frameWidth = 5;
     private Color frameColor = new Color(0, 0, 0);
@@ -62,6 +64,7 @@ public class MainApp extends JFrame{
         buttonCircle.addActionListener(e->drawAction=DrawAction.CIRCLE);
         buttonRay.addActionListener(e -> drawAction = DrawAction.RAY);
         buttonLine.addActionListener(e -> drawAction = DrawAction.LINE);
+        buttonPolygon.addActionListener(e->drawAction=DrawAction.POLYGON);
         buttonMove.addActionListener(e -> drawAction = DrawAction.MOVE);
 
         drawPanel.addMouseListener(new MouseAdapter() {
@@ -94,6 +97,20 @@ public class MainApp extends JFrame{
                             break;
                         case LINE:
                             shapes.add(new Line(e.getPoint(), e.getPoint(), frameColor, frameWidth));
+                            break;
+                        case POLYGON:
+                            ArrayList<Point> points =new  ArrayList<>();
+                            points.add(e.getPoint());
+                            points.add(e.getPoint());
+                            shapes.add(new Polygon(e.getPoint(),points,frameWidth,frameColor,fillColor));
+                            drawAction=DrawAction.UPDATE_POLYGON;
+                            break;
+                        case UPDATE_POLYGON:
+                            Shape currentShape = shapes.get(shapes.size() - 1);
+                            Polygon polygon=(Polygon)currentShape;
+                            ArrayList<Point> newPoints=polygon.getPoints();
+                            newPoints.add(e.getPoint());
+                            polygon.setPoints(newPoints);
                             break;
                     }
                     repaint();
